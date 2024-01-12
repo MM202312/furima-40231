@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :nickname, presence: true
-  validates :email, presence: true # 一意＆＆@マスト条件はデフォルト
  
   # 半角英数字混合／6文字以上＆確認用と一致条件はデフォルト
    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze

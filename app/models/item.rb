@@ -19,7 +19,7 @@ class Item < ApplicationRecord
     validates :shipping_fee_id
     validates :shipping_from_id
     validates :shipping_time_id
-    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
+    validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true }
     validates :image
   end
 

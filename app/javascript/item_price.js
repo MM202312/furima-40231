@@ -15,6 +15,5 @@ window.addEventListener('turbo:load', () => {
     const profitDom = document.getElementById("profit");
     profitDom.innerHTML = profit.toLocaleString(); // 3桁ごとにカンマを挿入
 
-    console.log(inputValue);
   })
 });

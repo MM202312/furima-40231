@@ -9,9 +9,14 @@ RSpec.describe OrderShipping, type: :model do
 
   describe '購入内容の確認' do
     context '購入成功' do
-      it 'すべての項目の入力について問題なし' do
-        expect(@order_shipping).to be_valid
-      end
+     it 'すべての項目の入力について問題なし' do
+       expect(@order_shipping).to be_valid
+     end
+
+     it '建物名が空でも登録できる' do
+       @order_shipping.building_name = ''
+       expect(@order_shipping).to be_valid
+     end
     end
 
     context '購入失敗' do
@@ -54,8 +59,13 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号は10 or 11桁でないと登録できない' do
-        @order_shipping.phone_number = '123456789012' # 12桁の場合
+      it '電話番号は10 or 11桁でないと登録できない（12桁の場合）' do
+        @order_shipping.phone_number = '123456789012'
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号は10 or 11桁でないと登録できない（9桁の場合）' do
+        @order_shipping.phone_number = '123456789'
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number is invalid")
       end

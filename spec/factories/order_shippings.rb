@@ -4,6 +4,7 @@ FactoryBot.define do
    shipping_from_id { rand(1..47) }
    municipality { '渋谷区' }
    house_number { '代々木1-1-1' }
+   building_name { 'アジアビル' }
    phone_number { '09012345678' }
    token {"tok_abcdefghijk00000000000000000"}
   end

@@ -1,19 +1,36 @@
-window.addEventListener('turbo:load', () => {
-  // 金額を入力した数値をpriceInputという変数に格納する
+// 販売手数料や販売利益を計算して表示する関数
+const updatePrices = () => {
   const priceInput = document.getElementById("item-price");
-  priceInput.addEventListener("input", () => {
-    const inputValue = parseFloat(priceInput.value) || 0; // 数値以外が入力された場合に備えて parseFloat を使って変換
+  const addTaxDom = document.getElementById("add-tax-price");
+  const profitDom = document.getElementById("profit");
 
-    // 10%の販売手数料を計算
-    const commissionFee = Math.floor(inputValue * 0.1);
+  if (!priceInput || !addTaxDom || !profitDom) {
+    return; // 要素が存在しない場合は処理を中断
+  }
 
-    const addTaxDom = document.getElementById("add-tax-price");
-    addTaxDom.innerHTML = commissionFee.toLocaleString(); // 3桁ごとにカンマを挿入
+  const inputValue = parseFloat(priceInput.value) || 0;
 
-    // 利益を計算（item-price から add-tax-price を引く）
-    const profit = inputValue - commissionFee;
-    const profitDom = document.getElementById("profit");
-    profitDom.innerHTML = profit.toLocaleString(); // 3桁ごとにカンマを挿入
+  const commissionFee = Math.floor(inputValue * 0.1);
+  const profit = inputValue - commissionFee;
 
-  })
+  addTaxDom.innerHTML = commissionFee.toLocaleString();
+  profitDom.innerHTML = profit.toLocaleString();
+};
+
+// turbo:load イベント発生時に実行
+window.addEventListener('turbo:load', () => {
+  // 販売手数料や販売利益を計算して表示
+  updatePrices();
+
+  // item-price の入力が変更された場合も再計算して表示
+  const priceInput = document.getElementById("item-price");
+  if (priceInput) {
+    priceInput.addEventListener("input", updatePrices);
+  }
+});
+
+// turbo:render イベント発生時にも実行
+window.addEventListener('turbo:render', () => {
+  // 販売手数料や販売利益を計算して表示
+  updatePrices();
 });

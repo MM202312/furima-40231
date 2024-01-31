@@ -18,7 +18,7 @@ class OrderShipping
   # def save(shipping_from)
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    Shipping.create(zip_code: zip_code, shipping_from_id: shipping_from.id, municipality: municipality,
+    Shipping.create(zip_code: zip_code, shipping_from_id: shipping_from_id, municipality: municipality,
                     house_number: house_number, building_name: building_name, phone_number: phone_number, order_id: order.id)
   end
 end

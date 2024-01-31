@@ -12,13 +12,12 @@ class OrdersController < ApplicationController
     @order_shipping = OrderShipping.new(order_params)
     if @order_shipping.valid?
       pay_item
-      shipping_from = ShippingFrom.find(@order_shipping.shipping_from_id)
-      @order_shipping.save(shipping_from) # 引数 shipping_from を渡す
-
+      # shipping_from = ShippingFrom.find(@order_shipping.shipping_from_id)
+      # @order_shipping.save(shipping_from) # 引数 shipping_from を渡す
+      @order_shipping.save
       redirect_to root_path
     else
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-      puts @order_shipping.errors.full_messages
       render 'index', status: :unprocessable_entity
     end
   end
